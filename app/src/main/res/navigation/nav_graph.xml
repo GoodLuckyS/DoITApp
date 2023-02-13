@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainScreenFragment">
+
+    <fragment
+        android:id="@+id/mainScreenFragment"
+        android:name="com.goodluckys.daily.presentation.screens.main.MainScreenFragment"
+        android:label="Hello">
+        <action
+            android:id="@+id/action_mainScreenFragment_to_createCategoryFragment"
+            app:destination="@id/createCategoryFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_taskSettingsFragment"
+            app:destination="@id/taskSettingsFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_category_graph"
+            app:destination="@id/category_graph">
+            <argument
+                android:name="id"
+                app:argType="integer" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/createCategoryFragment"
+        android:name="com.goodluckys.daily.presentation.screens.category.CategorySettingsFragment"
+        android:label="fragment_create_category"
+        tools:layout="@layout/fragment_category_settings" />
+    <fragment
+        android:id="@+id/taskSettingsFragment"
+        android:name="com.goodluckys.daily.presentation.screens.task.TaskSettingsFragment"
+        android:label="TaskSettingsFragment" />
+    <include app:graph="@navigation/category_graph" />
+</navigation>

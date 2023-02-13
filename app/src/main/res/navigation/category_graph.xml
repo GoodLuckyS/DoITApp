@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/category_graph"
+    app:startDestination="@id/categoryFragment2">
+
+    <argument
+        android:name="id"
+        app:argType="integer" />
+
+
+    <fragment
+        android:id="@+id/categoryFragment2"
+        android:name="com.goodluckys.daily.presentation.screens.category.CategoryFragment"
+        android:label="CategoryFragment" >
+
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+</navigation>
