@@ -2,4 +2,29 @@
     <string name="app_name">Daily</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- MainScreen Strings-->
+    <string name="main_screen_hello">Hello!</string>
+    <string name="main_screen_today_message">Lets be productive today!</string>
+    <string name="main_screen_categories_title">Categories</string>
+    <string name="main_screen_tasks_title">Today Tasks</string>
+
+    <!-- Hint Strings-->
+    <string name="hint_search">Search</string>
+
+    <!-- Category Strings-->
+    <string name="category_soap_general_title">General</string>
+
+    <!-- Response Strings -->
+    <string name="response_success_message">Success</string>
+    <string name="response_error_message">Error</string>
+    <string name="response_occurred_error">Occurred Error!</string>
+
+    <!-- Dialog Strings -->
+    <string name="dialog_create_category_title">Create Category</string>
+    <string name="dialog_create_category_message">
+     Specify the name of the category and click on the confirm button, the icon and color will be selected automatically
+    </string>
+    <string name="dialog_positive_button">Confirm</string>
+
 </resources>

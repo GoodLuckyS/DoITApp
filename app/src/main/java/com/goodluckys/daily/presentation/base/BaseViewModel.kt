@@ -1,14 +1,10 @@
 package com.goodluckys.daily.presentation.base
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goodluckys.daily.domain.SimpleResponse
 import com.goodluckys.daily.presentation.UIState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 
@@ -16,6 +12,9 @@ abstract class BaseViewModel : ViewModel() {
     @Suppress("FunctionName")
     protected fun <T> MutableUIStateFlow() = MutableStateFlow<UIState<T>>(UIState.Idle())
 
+    fun <T> MutableStateFlow<UIState<T>>.reset() {
+        value = UIState.Idle()
+    }
 
     protected fun SimpleResponse<String>.collectRequest(
         state: MutableStateFlow<UIState<String>>,
@@ -27,28 +26,51 @@ abstract class BaseViewModel : ViewModel() {
             }
             is SimpleResponse.Error -> {
                 state.value = UIState.Error(this.value)
-                Log.e("SOAP","Произошла ошибочка")
             }
         }
     }
 
-    protected fun <T> MutableSharedFlow<T>.emitRequest(
+    protected fun <T,S> MutableSharedFlow<T>.emitRequest(
 
-        state: MutableStateFlow<UIState<String>>,
+        state: MutableStateFlow<UIState<S>>,
         _response: suspend () -> SimpleResponse<Flow<T>>,
+
     ) {
         state.value = UIState.Loading()
         viewModelScope.launch {
-            when (val response = _response.invoke()) {
+            when (val response = _response()) {
                 is SimpleResponse.Success -> {
                     this@emitRequest.emitAll(response.value)
+                    state.value = UIState.Idle()
                 }
                 is SimpleResponse.Error -> {
                     state.value = UIState.Error(response.value)
                 }
             }
         }
+    } //TODO#5 QUESTION:MAP TO UI
 
+    protected fun <T,M,S> MutableSharedFlow<T>.emitRequest(
+
+        state: MutableStateFlow<UIState<S>>,
+        _response: suspend () -> SimpleResponse<Flow<M>>,
+        mappedData: ((M) -> T)
+
+        ) {
+        state.value = UIState.Loading()
+        viewModelScope.launch {
+            when (val response = _response()) {
+                is SimpleResponse.Success -> {
+                    this@emitRequest.emitAll(response.value.map {
+                        mappedData(it)
+                    })
+                    state.value = UIState.Idle()
+                }
+                is SimpleResponse.Error -> {
+                    state.value = UIState.Error(response.value)
+                }
+            }
+        }
     }
 
 }

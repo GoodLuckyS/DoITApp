@@ -4,7 +4,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.goodluckys.daily.R
 import com.goodluckys.daily.databinding.FragmentTaskSettingsBinding
 import com.goodluckys.daily.presentation.adapter.DropDownAdapter
 import com.goodluckys.daily.presentation.base.BaseFragment
@@ -17,21 +16,11 @@ class TaskSettingsFragment : BaseFragment<FragmentTaskSettingsBinding>(
     override val viewModel: MainScreenViewModel by viewModels {
         appComponent.viewModelFactory()
     }
-
     private lateinit var adapter: DropDownAdapter
-
-    override fun initialize() {
-        adapter = DropDownAdapter(
-            requireContext(),
-            R.layout.soap,
-            R.id.superSoap
-        )
-        binding.categorySelector.setAdapter(adapter)
-    }
 
     override fun setupListeners() {
 
-        var categoryId = -1
+        var categoryId = -1 //TODO CONST
 
         binding.btnBack.setOnClickListener {
             findNavController().popBackStack()
@@ -51,24 +40,22 @@ class TaskSettingsFragment : BaseFragment<FragmentTaskSettingsBinding>(
     }
 
     override fun setupSubscribes() {
-            viewModel.categoryList.observe {
-                if (it.isEmpty()) viewModel.setGeneralCategory()
-                adapter.addAll(it)
-                adapter.notifyDataSetChanged()
-            }
+
+
+        viewModel.categoryList.observe {
+            if (it.isEmpty()) viewModel.setGeneralCategory()
+            adapter = DropDownAdapter(context = requireContext(), data = it)
+            binding.categorySelector.setAdapter(adapter)
+            adapter.notifyDataSetChanged()
+        }
 
         viewModel.uiState.collectUIState(
             onError = {
-                Toast.makeText(this.context, "ERROR", Toast.LENGTH_SHORT).show()
-                Log.e("SOAP","Ошибочка в не главном")
+                Toast.makeText(this.context, it, Toast.LENGTH_SHORT).show()
             },
             onSuccess = {
-                Toast.makeText(this.context, "Success", Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack()
             }
         )
     }
-
-
-
 }

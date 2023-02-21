@@ -2,39 +2,21 @@ package com.goodluckys.daily.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.goodluckys.daily.databinding.TaskBinding
-import com.goodluckys.daily.domain.task.Task
-import com.goodluckys.daily.presentation.objects.TaskDiffCallback
+import com.goodluckys.daily.presentation.base.BaseAdapter
+import com.goodluckys.daily.presentation.entity.TaskUI
 
-class TaskListAdapter() : ListAdapter<Task, TaskListAdapter.TaskViewHolder>(TaskDiffCallback()) {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
+class TaskListAdapter : BaseAdapter<TaskUI, TaskBinding>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<TaskUI> {
         val inflater = LayoutInflater.from(parent.context)
         return TaskViewHolder(TaskBinding.inflate(inflater, parent, false))
     }
 
-    var onLongClickListener: ((item: Task) -> Unit)? = null
-    var onClickListener: ((item: Task) -> Unit)? = null
-
-    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
-        holder.onLongClickListener = onLongClickListener
-        holder.onClickListener = onClickListener
-    }
-
-    class TaskViewHolder(private val binding: TaskBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        var onLongClickListener: ((item: Task) -> Unit)? = null
-        var onClickListener: ((item: Task) -> Unit)? = null
-
-        fun bind(item: Task) = with(binding) {
+    class TaskViewHolder(private val binding: TaskBinding) : BaseViewHolder<TaskUI>(binding) {
+        override fun bind(item: TaskUI) = with(binding) {
             tvTask.text = item.title
+            binding.superSoapa.setImageResource(item.imageId)
+            binding.superSoapa.setBackgroundResource(item.backgroundId)
         }
-
     }
-
 }

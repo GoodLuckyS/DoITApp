@@ -12,21 +12,22 @@
     >
 
     <androidx.cardview.widget.CardView
-        app:cardElevation="0dp"
         android:id="@+id/soap"
+        app:cardElevation="0dp"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:backgroundTint="@color/purple_200"
         app:cardCornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="@id/tvExpire"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvTask">
 
         <ImageView
+
+            android:id="@+id/superSoapa"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="8dp"
-            android:src="@drawable/baseline_search_24" />
+            app:tint="@color/white" />
 
     </androidx.cardview.widget.CardView>
 

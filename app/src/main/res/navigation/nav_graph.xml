@@ -33,5 +33,6 @@
         android:id="@+id/taskSettingsFragment"
         android:name="com.goodluckys.daily.presentation.screens.task.TaskSettingsFragment"
         android:label="TaskSettingsFragment" />
+
     <include app:graph="@navigation/category_graph" />
 </navigation>

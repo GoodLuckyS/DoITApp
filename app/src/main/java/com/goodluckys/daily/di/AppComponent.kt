@@ -2,7 +2,7 @@ package com.goodluckys.daily.di
 
 import android.app.Application
 import com.goodluckys.daily.di.util.ApplicationScope
-import com.goodluckys.daily.presentation.objects.ViewModelFactory
+import com.goodluckys.daily.presentation.ViewModelFactory
 import com.goodluckys.daily.presentation.screens.main.MainScreenFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -13,7 +13,7 @@ import dagger.Component
 interface AppComponent {
 
     fun inject(fragment: MainScreenFragment)
-    fun viewModelFactory():ViewModelFactory
+    fun viewModelFactory(): ViewModelFactory
 
 
     @Component.Factory

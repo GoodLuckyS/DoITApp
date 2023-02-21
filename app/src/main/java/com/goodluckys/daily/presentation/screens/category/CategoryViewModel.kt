@@ -1,11 +1,12 @@
 package com.goodluckys.daily.presentation.screens.category
 
 import androidx.lifecycle.viewModelScope
-import com.goodluckys.daily.domain.category.Category
-import com.goodluckys.daily.domain.task.Task
 import com.goodluckys.daily.domain.task.usecase.DeleteTaskUseCase
 import com.goodluckys.daily.domain.task.usecase.GetTaskByCategoryUseCase
+import com.goodluckys.daily.domain.task.usecase.GetTaskWithSettingsList
 import com.goodluckys.daily.presentation.base.BaseViewModel
+import com.goodluckys.daily.presentation.entity.TaskUI
+import com.goodluckys.daily.presentation.entity.toUI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -16,26 +17,26 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CategoryViewModel @Inject constructor(
-     private val getTaskByCategoryUseCase: GetTaskByCategoryUseCase,
-     private val deleteTaskUseCase: DeleteTaskUseCase
+    private val getTaskByCategoryUseCase: GetTaskByCategoryUseCase,
+    private val deleteTaskUseCase: DeleteTaskUseCase,
 ) : BaseViewModel() {
 
-    private val   _uiState = MutableUIStateFlow<String>()
+    private val _uiState = MutableUIStateFlow<String>()
     val uiState = _uiState.asStateFlow()
 
     private var _taskList =
-        MutableSharedFlow<List<Task>>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val taskList: SharedFlow<List<Task>> = _taskList.asSharedFlow()
+        MutableSharedFlow<List<TaskUI>>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val taskList: SharedFlow<List<TaskUI>> = _taskList.asSharedFlow()
 
-    fun getTaskList(id:Int) {
-        _taskList.emitRequest(_uiState) {
+    fun getTaskList(id: Int) {
+        _taskList.emitRequest(_uiState, {
             getTaskByCategoryUseCase.invoke(id)
-        }
+        }) { it.toUI() }
     }
 
-    fun deleteTask(it:Task) {
+    fun deleteTask(it: TaskUI) {
         viewModelScope.launch(Dispatchers.IO) {
-            deleteTaskUseCase.invoke(it)
+            deleteTaskUseCase.invoke(it.toDomain())
         }
     }
 

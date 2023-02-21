@@ -24,7 +24,6 @@ interface LocalModule {
     @Binds
     fun bindTaskRepository(impl: TaskRepositoryImpl) : TaskRepository
 
-
     companion object {
         @ApplicationScope
         @Provides

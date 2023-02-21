@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface TaskRepository : BaseDatabaseRepository<Task> {
 
-    suspend fun getTaskListByCategory(id:Int) : SimpleResponse<Flow<List<Task>>>
+    suspend fun getTaskListByCategory(id: Int): SimpleResponse<Flow<List<TaskWithSettings>>>
+
+    suspend fun getTaskWithDrawableSettingsList(): SimpleResponse<Flow<List<TaskWithSettings>>>
 
 }

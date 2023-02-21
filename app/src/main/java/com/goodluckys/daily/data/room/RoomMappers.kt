@@ -1,16 +1,29 @@
 package com.goodluckys.daily.data.mappers
 
 import com.goodluckys.daily.data.room.category.CategoryDbEntity
+import com.goodluckys.daily.data.room.category.DrawableSettingsTuple
 import com.goodluckys.daily.data.room.task.TaskDbEntity
 import com.goodluckys.daily.domain.task.Task
 import com.goodluckys.daily.domain.category.Category
+import com.goodluckys.daily.domain.DrawableSettings
 
 fun CategoryDbEntity.toDomain() = Category(
-    title, colorId, imageId, id
+    id = id,
+    title = title,
+    drawableSettings = DrawableSettings(
+        imageId = drawableSettings.imageId,
+        backgroundId = drawableSettings.colorId,
+
+    )
 )
 
 fun Category.toData() = CategoryDbEntity(
-    id, colorId, imageId, title
+    id = id,
+    title = title,
+    drawableSettings = DrawableSettingsTuple(
+        imageId = drawableSettings.imageId,
+        colorId = drawableSettings.backgroundId
+    ),
 )
 
 fun List<CategoryDbEntity>.toDomain() = this.map {
@@ -22,8 +35,7 @@ fun TaskDbEntity.toDomain() = Task(
     title = title,
     categoryId = categoryId,
     description = description,
-    isCompleted = isCompleted
-
+    isCompleted = isCompleted,
 )
 
 fun Task.toData() = TaskDbEntity(
@@ -32,5 +44,5 @@ fun Task.toData() = TaskDbEntity(
 
 fun List<TaskDbEntity>.toTask() = this.map {
     it.toDomain()
-}
+}//TODO#1 QUESTION:MAPPING
 

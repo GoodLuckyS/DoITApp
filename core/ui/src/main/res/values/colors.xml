@@ -21,6 +21,12 @@
     <color name="good4">#001251</color>
     <color name="good5">#010B32</color>
 
+    <color name="red">#D50000</color>
+    <color name="blue">#304FFE</color>
+    <color name="orange">#FFAB00</color>
+    <color name="yellow">#FFD600</color>
+    <color name="green">#64DD17</color>
+
 
     <!-- Backgrounds Gradient -->
     <!-- Blue -->

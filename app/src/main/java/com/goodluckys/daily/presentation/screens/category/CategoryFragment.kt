@@ -1,6 +1,8 @@
 package com.goodluckys.daily.presentation.screens.category
 
+import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -24,7 +26,16 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(
 
     private lateinit var taskListAdapter: TaskListAdapter
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+    }
+
     override fun initialize() {
+
+
+
         viewModel.getTaskList(args.id)
         setupRecyclerView()
 
@@ -36,10 +47,6 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(
         lm1.orientation = LinearLayoutManager.VERTICAL
         binding.rcTask.adapter = taskListAdapter
         binding.rcTask.layoutManager = lm1
-
-        taskListAdapter.onLongClickListener = {
-               viewModel.deleteTask(it)
-        }
 
         val callback = object : ItemTouchHelper.SimpleCallback(
             0,
@@ -55,7 +62,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val item = taskListAdapter.currentList[viewHolder.position]
-                Log.e("SOAP",item.toString())
+                Log.e("SOAP", item.toString())
                 viewModel.deleteTask(item)
 
             }
@@ -63,8 +70,6 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(binding.rcTask)
 
-                                  
-        
 
     }
 
@@ -74,7 +79,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(
                 Toast.makeText(this.context, it, Toast.LENGTH_SHORT).show()
             },
             onSuccess = {
-                Toast.makeText(this.context, "SUCA", Toast.LENGTH_SHORT).show()
+
             }
         )
     }

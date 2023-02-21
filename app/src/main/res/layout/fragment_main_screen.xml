@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="18dp"
-                android:text="Hello!"
+                android:text="@string/main_screen_hello"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
                 android:id="@+id/soapTodayMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Let's be productive today!"
+                android:text="@string/main_screen_today_message"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@id/soapHello"
@@ -89,7 +89,7 @@
                     style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Search"
+                    android:hint="@string/hint_search"
                     android:textColor="?attr/colorOnPrimary" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Categories"
+                android:text="@string/main_screen_categories_title"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -113,11 +113,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:src="@drawable/baseline_add_white_24"
+
+                android:src="@drawable/baseline_add_24"
                 app:layout_constraintBottom_toBottomOf="@id/tvCategories"
                 app:layout_constraintStart_toEndOf="@id/tvCategories"
                 app:layout_constraintTop_toTopOf="@id/tvCategories"
-                app:layout_constraintVertical_bias="0.5" />
+                app:layout_constraintVertical_bias="0.5"
+                 />
 
             <androidx.recyclerview.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/categoriesRc"
@@ -162,7 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="Today's Tasks"
+                android:text="@string/main_screen_tasks_title"
                 android:textColor="@color/colorOnLight"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -217,7 +219,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="8dp"
-
+        android:foregroundTint="@color/white"
         android:backgroundTint="@color/colorPrimary"
         android:src="@drawable/baseline_add_24"
         app:tint="?attr/colorOnPrimary" />

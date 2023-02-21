@@ -1,7 +1,7 @@
 package com.goodluckys.daily.domain.task
 
 data class Task(
-    var categoryId: Int=1,
+    var categoryId: Int = 1,
     val title: String,
     val description: String,
     val isCompleted: Boolean = false,

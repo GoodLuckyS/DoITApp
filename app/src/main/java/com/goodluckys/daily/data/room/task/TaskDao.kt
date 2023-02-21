@@ -9,11 +9,14 @@ interface TaskDao {
     @Query("SELECT * FROM tasks")
     fun getTasksList(): Flow<List<TaskDbEntity>>
 
-    @Query("SELECT * FROM tasks WHERE category_id=:categoryId ")
-    fun getTaskListByCategory(categoryId: Int): Flow<List<TaskDbEntity>>
+    @Query("SELECT * FROM tasks JOIN categories ON id =tasks.category_id")
+    fun getTaskWithDrawableSettingsList(): Flow<List<TaskWithSettingsTuple>>
+
+    @Query("SELECT * FROM tasks JOIN categories ON id =tasks.category_id AND tasks.category_id=:categoryId")
+    fun getTaskListByCategory(categoryId: Int): Flow<List<TaskWithSettingsTuple>>
 
     @Query("SELECT * FROM tasks WHERE task_id=:id")
-    fun getTask(id:Int) : TaskDbEntity
+    fun getTask(id: Int): TaskDbEntity
 
     @Insert()
     fun createTask(task: TaskDbEntity)
@@ -23,4 +26,5 @@ interface TaskDao {
 
     @Update()
     fun updateTask(task: TaskDbEntity)
+
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Daily.TextInput.OutlinedBox"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Title"
+    android:textColorHint="?attr/colorPrimary"
+    app:helperText="Add Category title"
+    app:helperTextTextColor="?attr/colorPrimary"
+    app:boxStrokeColor="@color/text_input_layout_stroke_color_dark"
+    app:counterEnabled="true"
+    android:layout_margin="16dp"
+    app:counterMaxLength="20"
+    app:counterTextColor="@color/colorPrimary"
+    >
+
+    <com.google.android.material.textfield.TextInputEditText
+
+        android:id="@+id/edTitle"
+        android:text="New Category"
+        android:selectAllOnFocus="true"
+        android:maxLength="20"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</com.google.android.material.textfield.TextInputLayout>

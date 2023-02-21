@@ -10,7 +10,7 @@
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cll"
+        android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00B8D4">
@@ -21,13 +21,17 @@
             android:layout_height="48dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
-            android:src="@drawable/white_baseline_search_24"
+            android:src="@drawable/baseline_book_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/colorOnDark" />
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_margin="4dp"
+            android:src="@drawable/baseline_delete_outline_24"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:tint="@color/colorOnDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
@@ -36,46 +40,26 @@
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
-            android:layout_height="64dp"
+            android:layout_height="0dp"
             android:layout_marginTop="8dp"
             android:autoSizeMaxTextSize="32sp"
             android:autoSizeMinTextSize="16sp"
             android:gravity="center|left"
             android:text="Genshin Impact"
+            android:layout_marginEnd="16dp"
+            android:paddingBottom="16dp"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/tvTasksCount"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/ivIcon"
             app:layout_constraintTop_toBottomOf="@+id/ivIcon" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/soapCountImg"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/white"
-            app:layout_constraintEnd_toStartOf="@id/tvTasksCount"
-            app:layout_constraintHorizontal_bias="0.48"
-            app:layout_constraintStart_toStartOf="@id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle"
-            app:shapeAppearance="@style/roundedImageView" />
 
-        <TextView
-            android:id="@+id/tvTasksCount"
-            android:layout_width="0dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="4dp"
-            android:text="6 Tasks"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/soapCountImg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/soapCountImg"
-            app:layout_constraintTop_toTopOf="@id/soapCountImg" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,7 @@ data class TaskDbEntity(
     val id: Int,
     @ColumnInfo(name = "category_id")
     val categoryId: Int,
-    @ColumnInfo(name = "title")
+    @ColumnInfo(name = "task_title")
     val title: String,
     @ColumnInfo(name = "count")
     val description: String,

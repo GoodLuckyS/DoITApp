@@ -2,6 +2,7 @@ package com.goodluckys.daily.presentation.base
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.goodluckys.daily.MainApplication
 import com.goodluckys.daily.presentation.UIState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 
@@ -57,8 +59,8 @@ abstract class BaseFragment<VB : ViewBinding>(
     protected open fun setupSubscribes() {}
     protected open fun setupListeners() {}
 
-    private fun collectFlowSafely(
-        lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,
+   private fun collectFlowSafely(
+        lifecycleState: Lifecycle.State,
         collect: suspend () -> Unit,
     ) {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -69,26 +71,34 @@ abstract class BaseFragment<VB : ViewBinding>(
     }
 
     protected fun <T> SharedFlow<T>.observe(action: suspend (T) -> Unit) {
-        collectFlowSafely() {
+        collectFlowSafely(Lifecycle.State.STARTED) {
             this.collect {
                 action.invoke(it)
             }
         }
     }
 
-    protected fun <T> Flow<UIState<T>>.collectUIState(
+    protected fun <T> StateFlow<UIState<T>>.collectUIState(
         state: ((UIState<T>) -> Unit)? = null,
         onError: ((error: String) -> Unit),
         onSuccess: ((data: T) -> Unit),
+        lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,
+        onReact: (()->Unit)? = null,
     ) {
-        collectFlowSafely() {
+        collectFlowSafely(lifecycleState) {
             this.collect {
                 state?.invoke(it)
                 when (it) {
                     is UIState.Idle -> {}
                     is UIState.Loading -> {}
-                    is UIState.Error -> onError.invoke(it.error)
-                    is UIState.Success -> onSuccess.invoke(it.data)
+                    is UIState.Error -> {
+                        onError.invoke(it.error)
+                        onReact?.invoke()
+                    }
+                    is UIState.Success -> {
+                        onSuccess.invoke(it.data)
+                        onReact?.invoke()
+                    }
                 }
             }
         }
